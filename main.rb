@@ -3,6 +3,9 @@
 require "bundler/setup"
 Bundler.require(:default)
 
+require "csv"
+require_relative "lib/payslip_builder"
+
 YOROZUYA_COMPANY_ID = ENV["YOROZUYA_COMPANY_ID"]
 YOROZUYA_USER_ID = ENV["YOROZUYA_USER_ID"]
 YOROZUYA_USER_PASSWORD = ENV["YOROZUYA_USER_PASSWORD"]
@@ -48,3 +51,35 @@ Capybara::Session.new(:selenium_chrome_ja).instance_exec do
     click_button "次の支給日"
   end
 end
+
+headers = nil
+csv_table = nil
+
+Dir.glob(File.expand_path("payslips/*.html", __dir__)).sort.each_with_index do |filename, i|
+  builder = PayslipBuilder.new(File.read(filename))
+  payslip = builder.call
+
+  if i.zero?
+    headers = [
+      *payslip.payment.names,
+      *payslip.deduction.names,
+      *payslip.net_payment.names
+    ]
+    values = [
+      payslip.name,
+      *headers.reduce([]) { |a, h| a << payslip.amount_of(h) }
+    ]
+
+    csv_table = CSV.new(
+      "#{['明細書分類', *headers].join(',')}\n#{values.join(',')}",
+      headers: true
+    ).read
+  else
+    csv_table << [
+      payslip.name,
+      *headers.reduce([]) { |a, h| a << payslip.amount_of(h) }
+    ]
+  end
+end
+
+File.write("result.csv", csv_table.to_csv)
