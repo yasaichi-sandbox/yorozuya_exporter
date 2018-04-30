@@ -60,3 +60,7 @@ build/
 .rvmrc
 
 
+### App sepecific configuration
+/payslips/**/*
+!/payslips/.keep
+
