@@ -30,6 +30,7 @@ GEM
     selenium-webdriver (3.11.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
+    thor (0.20.0)
     xpath (3.0.0)
       nokogiri (~> 1.8)
 
@@ -41,6 +42,7 @@ DEPENDENCIES
   nokogiri
   pry
   selenium-webdriver
+  thor
 
 BUNDLED WITH
    1.16.0
