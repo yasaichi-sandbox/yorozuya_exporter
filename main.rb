@@ -4,7 +4,7 @@ require "bundler/setup"
 Bundler.require(:default)
 
 require "csv"
-require_relative "lib/payslip_builder"
+require_relative "lib/yorozuya_exporter"
 
 YOROZUYA_COMPANY_ID = ENV["YOROZUYA_COMPANY_ID"]
 YOROZUYA_USER_ID = ENV["YOROZUYA_USER_ID"]
@@ -60,7 +60,7 @@ headers = nil
 csv_table = nil
 
 Dir.glob(File.expand_path("payslips/*.html", __dir__)).sort.each_with_index do |filename, i|
-  builder = PayslipBuilder.new(File.read(filename))
+  builder = YorozuyaExporter::PayslipBuilder.new(File.read(filename))
   payslip = builder.call
 
   if i.zero?
