@@ -2,7 +2,7 @@
 
 require "capybara"
 require "selenium/webdriver"
-require_relative "payslip_builder"
+require_relative "html_reader/payslip"
 
 Capybara.register_driver :selenium_chrome_headless_ja do |app|
   Capybara::Selenium::Driver.new(
@@ -45,8 +45,8 @@ module YorozuyaExporter
 
           # payslip detail
           loop do
-            builder = ::YorozuyaExporter::PayslipBuilder.new(html)
-            yielder.yield(builder.call)
+            reader = ::YorozuyaExporter::HTMLReader::Payslip.new(html)
+            yielder.yield(reader.call)
 
             break unless has_button?("次の支給日")
             click_button "次の支給日"
