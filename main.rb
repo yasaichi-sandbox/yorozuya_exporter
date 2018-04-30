@@ -11,11 +11,15 @@ YOROZUYA_USER_ID = ENV["YOROZUYA_USER_ID"]
 YOROZUYA_USER_PASSWORD = ENV["YOROZUYA_USER_PASSWORD"]
 YOROZUYA_ROOT_URL = "https://www.4628.jp"
 
-Capybara.register_driver :selenium_chrome_ja do |app|
+Capybara.register_driver :selenium_chrome_headless_ja do |app|
   Capybara::Selenium::Driver.new(
     app,
     browser: :chrome,
     options: Selenium::WebDriver::Chrome::Options.new(
+      args: [
+        "headless",
+        "disable-gpu"
+      ],
       prefs: {
         "intl.accept_languages": "ja"
       }
@@ -23,7 +27,7 @@ Capybara.register_driver :selenium_chrome_ja do |app|
   )
 end
 
-Capybara::Session.new(:selenium_chrome_ja).instance_exec do
+Capybara::Session.new(:selenium_chrome_headless_ja).instance_exec do
   visit YOROZUYA_ROOT_URL
 
   # ログイン画面
