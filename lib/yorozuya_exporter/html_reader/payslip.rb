@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative "base"
-require_relative "../payslip"
+require "yorozuya_exporter/html_reader/base"
+require "yorozuya_exporter/payslip"
 
 module YorozuyaExporter
   module HTMLReader

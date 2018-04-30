@@ -20,7 +20,7 @@ module YorozuyaExporter
     end
 
     class ItemCollection
-      extend Forwardable
+      extend ::Forwardable
 
       def_delegator :@hash, :[], :amount_of
       def_delegator :@hash, :keys, :names

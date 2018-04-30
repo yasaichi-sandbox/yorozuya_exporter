@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "thor"
-require_relative "../yorozuya_exporter"
+require "yorozuya_exporter"
 
 module YorozuyaExporter
   class CLI < ::Thor

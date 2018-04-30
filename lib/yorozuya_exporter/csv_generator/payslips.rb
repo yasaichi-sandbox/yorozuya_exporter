@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "set"
-require_relative "base"
+require "yorozuya_exporter/csv_generator/base"
 
 module YorozuyaExporter
   module CSVGenerator

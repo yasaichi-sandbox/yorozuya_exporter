@@ -2,7 +2,7 @@
 
 require "capybara"
 require "selenium/webdriver"
-require_relative "html_reader/payslip"
+require "yorozuya_exporter/html_reader/payslip"
 
 Capybara.register_driver :selenium_chrome_headless_ja do |app|
   Capybara::Selenium::Driver.new(
